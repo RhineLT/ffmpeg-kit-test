@@ -1,3 +1,4 @@
 include ':test-app-local-dependency'
 include ':test-app-maven-central'
+include ':simple-app'
 rootProject.name='ffmpeg-kit-android-test'

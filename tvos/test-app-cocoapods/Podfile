@@ -1,7 +1,0 @@
-platform :tvos, '11.0'
-
-use_frameworks!
-
-target "FFmpegKitTVOS" do
-    pod 'ffmpeg-kit-tvos-full', '6.0'
-end
