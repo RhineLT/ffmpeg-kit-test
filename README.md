@@ -1,5 +1,8 @@
 # FFmpegKit Test
 
+[![Build Android](https://github.com/RhineLT/ffmpeg-kit-test/actions/workflows/build-android.yml/badge.svg)](https://github.com/RhineLT/ffmpeg-kit-test/actions/workflows/build-android.yml)
+[![Build iOS](https://github.com/RhineLT/ffmpeg-kit-test/actions/workflows/build-ios.yml/badge.svg)](https://github.com/RhineLT/ffmpeg-kit-test/actions/workflows/build-ios.yml)
+
 Test applications for [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
 
 - `Android` under the [android](https://github.com/arthenica/ffmpeg-kit-test/tree/main/android) folder
@@ -15,6 +18,25 @@ burning subtitles, video stabilisation, pipe operations, concurrent command exec
 
 Android application and React Native application on Android also include a Storage Access Framework (SAF) tab to 
 demonstrate how SAF uris can be used with `FFmpegKit`.
+
+## 🚀 CI/CD with GitHub Actions
+
+This repository includes GitHub Actions workflows for automated building:
+
+- **Android Build** (`.github/workflows/build-android.yml`): Builds Android test applications
+- **iOS Build** (`.github/workflows/build-ios.yml`): Builds iOS test applications
+
+### Quick Status Check
+
+```bash
+# Quick status overview
+./scripts/quick-status.sh
+
+# Detailed monitoring
+./scripts/monitor-actions.sh --follow
+```
+
+For complete documentation on CI/CD setup, build monitoring, and artifact downloads, see [GitHub Actions Guide](docs/GITHUB_ACTIONS_GUIDE.md).
 
 ### Versions
 
