@@ -1,0 +1,62 @@
+name: Build Android
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x android/gradlew
+      
+    - name: Build test-app-maven-central (Debug)
+      run: |
+        cd android
+        ./gradlew :test-app-maven-central:assembleDebug
+        
+    - name: Build test-app-maven-central (Release)
+      run: |
+        cd android
+        ./gradlew :test-app-maven-central:assembleRelease
+        
+    - name: Upload APK artifacts (Maven Central - Debug)
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-maven-central-debug
+        path: android/test-app-maven-central/build/outputs/apk/debug/*.apk
+        retention-days: 7
+        
+    - name: Upload APK artifacts (Maven Central - Release)
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-maven-central-release
+        path: android/test-app-maven-central/build/outputs/apk/release/*.apk
+        retention-days: 7
+        
+    - name: Build summary
+      run: |
+        echo "### Android Build Summary :rocket:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "#### Build Status: ✅ Success" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Built Applications:**" >> $GITHUB_STEP_SUMMARY
+        echo "- test-app-maven-central (Debug)" >> $GITHUB_STEP_SUMMARY
+        echo "- test-app-maven-central (Release)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Artifacts uploaded and available for download.**" >> $GITHUB_STEP_SUMMARY
